@@ -78,5 +78,8 @@ export default withTracker(() => {
     meetingId,
     hasUnreadNotes,
     presentationTitle: meetingTitle,
+
+    // New added:
+    isInterview: !!Meetings.findOne({ meetingId: Auth.meetingID }).metadataProp?.metadata?.presenter,
   };
 })(NavBarContainer);

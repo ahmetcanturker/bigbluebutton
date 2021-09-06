@@ -12,6 +12,7 @@ import Service from './service';
 import UserListService from '/imports/ui/components/user-list/service';
 import ExternalVideoService from '/imports/ui/components/external-video-player/service';
 import CaptionsService from '/imports/ui/components/captions/service';
+import Meetings from '/imports/api/meetings';
 
 import MediaService, {
   getSwapLayout,
@@ -61,4 +62,7 @@ export default withTracker(() => ({
     { fields: {} }),
   allowExternalVideo: Meteor.settings.public.externalVideoPlayer.enabled,
   setEmojiStatus: UserListService.setEmojiStatus,
+
+  // New added:
+  isInterview: !!Meetings.findOne({ meetingId: Auth.meetingID })?.metadataProp?.metadata?.presenter,
 }))(injectIntl(ActionsBarContainer));

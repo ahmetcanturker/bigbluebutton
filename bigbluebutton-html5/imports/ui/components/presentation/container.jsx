@@ -108,5 +108,8 @@ export default withTracker(({ podId }) => {
       'bbb_force_restore_presentation_on_new_events',
       Meteor.settings.public.presentation.restoreOnUpdate,
     ),
+    
+    // New added:
+    isInterview: !!Meetings.findOne({ meetingId: Auth.meetingID })?.metadataProp?.metadata?.presenter,
   };
 })(PresentationAreaContainer);

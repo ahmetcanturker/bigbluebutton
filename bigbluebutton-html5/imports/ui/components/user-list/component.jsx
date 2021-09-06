@@ -25,6 +25,31 @@ const defaultProps = {
 };
 
 class UserList extends PureComponent {
+  handlePropsChange() {
+    if (!this.props.isInterview) {
+      return;
+    }
+
+    console.log(this.props.meeting);
+    console.log(this.props.user);
+    console.log(this.props.currentUser);
+    console.log(this.props.isInterview);
+
+    if (this.props.isInterview &&
+      this.props.intervieweeName === this.props.user.name) {
+      console.log('Going to take presenter');
+      this.props.handleTakePresenter();
+    }
+  }
+
+  componentDidMount() {
+    this.handlePropsChange();
+  }
+
+  componentDidUpdate() {
+    this.handlePropsChange();
+  }
+
   render() {
     const {
       intl,

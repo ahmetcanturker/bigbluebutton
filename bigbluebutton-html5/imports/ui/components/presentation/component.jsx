@@ -456,6 +456,11 @@ class PresentationArea extends PureComponent {
     if (!shouldEnableSwapLayout() || isFullscreen) {
       return null;
     }
+
+    if (this.props.isInterview) {
+      return null;
+    }
+
     return <PresentationCloseButton toggleSwapLayout={MediaService.toggleSwapLayout} />;
   }
 
@@ -842,7 +847,7 @@ class PresentationArea extends PureComponent {
             {showSlide && svgWidth > 0 && svgHeight > 0
               ? this.renderPresentationArea(svgDimensions, viewBoxDimensions)
               : null}
-            {showSlide && (userIsPresenter || multiUser)
+            {showSlide && !this.props.isInterview && (userIsPresenter || multiUser)
               ? this.renderWhiteboardToolbar(svgDimensions)
               : null}
             {showSlide && userIsPresenter && svgWidth > 0 && svgHeight > 0

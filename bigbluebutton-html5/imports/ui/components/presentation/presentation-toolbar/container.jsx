@@ -8,6 +8,8 @@ import PollService from '/imports/ui/components/poll/service';
 import { makeCall } from '/imports/ui/services/api';
 import PresentationToolbar from './component';
 import PresentationToolbarService from './service';
+import Meetings from '/imports/api/meetings';
+import Auth from '/imports/ui/services/auth';
 
 const POLLING_ENABLED = Meteor.settings.public.poll.enabled;
 
@@ -56,6 +58,9 @@ export default withTracker((params) => {
     currentSlidHasContent: PresentationService.currentSlidHasContent(),
     parseCurrentSlideContent: PresentationService.parseCurrentSlideContent,
     startPoll,
+
+    // New added:
+    isInterview: !!Meetings.findOne({ meetingId: Auth.meetingID })?.metadataProp?.metadata?.presenter,
   };
 })(PresentationToolbarContainer);
 

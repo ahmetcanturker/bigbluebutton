@@ -49,6 +49,7 @@ class UserContent extends PureComponent {
       startedChats,
     } = this.props;
 
+
     return (
       <div
         data-test="userListContent"

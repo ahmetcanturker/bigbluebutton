@@ -44,19 +44,21 @@ class ActionsBar extends PureComponent {
         }}
       >
         <div className={styles.left}>
-          <ActionsDropdown {...{
-            amIPresenter,
-            amIModerator,
-            isPollingEnabled,
-            isSelectRandomUserEnabled,
-            allowExternalVideo,
-            handleTakePresenter,
-            intl,
-            isSharingVideo,
-            stopExternalVideoShare,
-            isMeteorConnected,
-          }}
-          />
+          {!this.props.isInterview && (
+            <ActionsDropdown {...{
+              amIPresenter,
+              amIModerator,
+              isPollingEnabled,
+              isSelectRandomUserEnabled,
+              allowExternalVideo,
+              handleTakePresenter,
+              intl,
+              isSharingVideo,
+              stopExternalVideoShare,
+              isMeteorConnected,
+            }}
+            />
+          )}
           {isCaptionsAvailable
             ? (
               <CaptionsButtonContainer {...{ intl }} />
@@ -85,16 +87,15 @@ class ActionsBar extends PureComponent {
               />
             )
             : null}
-          {isRaiseHandButtonEnabled
+          {(isRaiseHandButtonEnabled && !this.props.isInterview)
             ? (
               <Button
                 icon="hand"
                 label={intl.formatMessage({
-                  id: `app.actionsBar.emojiMenu.${
-                    currentUser.emoji === 'raiseHand'
+                  id: `app.actionsBar.emojiMenu.${currentUser.emoji === 'raiseHand'
                       ? 'lowerHandLabel'
                       : 'raiseHandLabel'
-                  }`,
+                    }`,
                 })}
                 accessKey={shortcuts.raisehand}
                 color={currentUser.emoji === 'raiseHand' ? 'primary' : 'default'}

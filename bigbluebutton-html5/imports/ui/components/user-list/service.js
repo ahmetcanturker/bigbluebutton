@@ -52,6 +52,8 @@ const sortUsersByUserId = (a, b) => {
   return 0;
 };
 
+const takePresenterRole = () => makeCall('assignPresenter', Auth.userID);
+
 const sortUsersByName = (a, b) => {
   const aName = a.name ? a.name.toLowerCase() : '';
   const bName = b.name ? b.name.toLowerCase() : '';
@@ -656,4 +658,5 @@ export default {
   getUsersProp,
   getUserCount,
   sortUsersByCurrent,
+  takePresenterRole
 };

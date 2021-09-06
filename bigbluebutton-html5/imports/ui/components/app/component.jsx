@@ -169,6 +169,9 @@ class App extends Component {
     ConnectionStatusService.startRoundTripTime();
 
     logger.info({ logCode: 'app_component_componentdidmount' }, 'Client loaded successfully');
+
+    // debugger;
+    // logger.info({ logCode: 'app_component_componentdidmount_custom' }, JSON.stringify(this.props));
   }
 
   componentDidUpdate(prevProps) {

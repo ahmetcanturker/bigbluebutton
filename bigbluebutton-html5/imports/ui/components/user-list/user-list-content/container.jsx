@@ -19,7 +19,7 @@ const UserContentContainer = (props) => {
     locked: users[Auth.meetingID][Auth.userID].locked,
     role: users[Auth.meetingID][Auth.userID].role,
   };
-  return (<UserContent {...props} currentUser={currentUser} />);
+  return (<UserContent {...props} currentUser={currentUser}  />);
 };
 
 export default withTracker(() => ({
@@ -31,5 +31,5 @@ export default withTracker(() => ({
     meetingId: Auth.meetingID,
     approved: false,
     denied: false,
-  }).fetch(),
+  }).fetch()
 }))(UserContentContainer);

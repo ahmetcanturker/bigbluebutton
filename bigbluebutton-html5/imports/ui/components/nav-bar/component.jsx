@@ -98,25 +98,29 @@ class NavBar extends Component {
       >
         <div className={styles.top}>
           <div className={styles.left}>
-            {!isExpanded ? null
-              : <Icon iconName="left_arrow" className={styles.arrowLeft} />
-            }
-            <Button
-              onClick={NavBar.handleToggleUserList}
-              ghost
-              circle
-              hideLabel
-              data-test={hasNotification ? 'hasUnreadMessages' : null}
-              label={intl.formatMessage(intlMessages.toggleUserListLabel)}
-              aria-label={ariaLabel}
-              icon="user"
-              className={cx(toggleBtnClasses)}
-              aria-expanded={isExpanded}
-              accessKey={TOGGLE_USERLIST_AK}
-            />
-            {isExpanded ? null
-              : <Icon iconName="right_arrow" className={styles.arrowRight} />
-            }
+            {!this.props.isInterview && (
+              <>
+                {!isExpanded ? null
+                  : <Icon iconName="left_arrow" className={styles.arrowLeft} />
+                }
+                <Button
+                  onClick={NavBar.handleToggleUserList}
+                  ghost
+                  circle
+                  hideLabel
+                  data-test={hasNotification ? 'hasUnreadMessages' : null}
+                  label={intl.formatMessage(intlMessages.toggleUserListLabel)}
+                  aria-label={ariaLabel}
+                  icon="user"
+                  className={cx(toggleBtnClasses)}
+                  aria-expanded={isExpanded}
+                  accessKey={TOGGLE_USERLIST_AK}
+                />
+                {isExpanded ? null
+                  : <Icon iconName="right_arrow" className={styles.arrowRight} />
+                }
+              </>
+            )}
           </div>
           <div className={styles.center}>
             <h1 className={styles.presentationTitle}>{presentationTitle}</h1>

@@ -24,6 +24,9 @@ import {
   BREAKOUT_MIN_WIDTH,
   BREAKOUT_MAX_WIDTH,
 } from '/imports/ui/components/layout/layout-manager/component';
+import { withTracker } from 'meteor/react-meteor-data';
+import Meetings from '/imports/api/meetings';
+import Auth from '/imports/ui/services/auth';
 
 const intlMessages = defineMessages({
   chatLabel: {
@@ -635,24 +638,35 @@ class PanelManager extends Component {
   }
 
   render() {
-    const { enableResize, openPanel } = this.props;
+    const {
+      enableResize,
+      openPanel,
+
+      // New added
+      isInterview
+    } = this.props;
+
     if (openPanel === '') return null;
     const panels = [];
 
-    if (enableResize) {
-      panels.push(
-        this.renderUserListResizable(),
-        <div className={styles.userlistPad} key={this.padKey} />,
-      );
-    } else {
-      panels.push(this.renderUserList());
+    if (!isInterview) {
+      if (enableResize) {
+        panels.push(
+          this.renderUserListResizable(),
+          <div className={styles.userlistPad} key={this.padKey} />,
+        );
+      } else {
+        panels.push(this.renderUserList());
+      }
     }
 
-    if (openPanel === 'chat') {
-      if (enableResize) {
-        panels.push(this.renderChatResizable());
-      } else {
-        panels.push(this.renderChat());
+    if (!isInterview) {
+      if (openPanel === 'chat') {
+        if (enableResize) {
+          panels.push(this.renderChatResizable());
+        } else {
+          panels.push(this.renderChat());
+        }
       }
     }
 
@@ -700,6 +714,16 @@ class PanelManager extends Component {
   }
 }
 
-export default injectIntl(withLayoutConsumer(PanelManager));
+
+const _PanelManager = withTracker(({ compact }) => ({
+  // New added:
+  meeting: Meetings.findOne({ meetingId: Auth.meetingID }),
+  isInterview: !!Meetings.findOne({ meetingId: Auth.meetingID }).metadataProp?.metadata?.presenter,
+  intervieweeName: Meetings.findOne({ meetingId: Auth.meetingID }).metadataProp?.metadata?.presenter
+}))(PanelManager);
+
+
+// export default injectIntl(withLayoutConsumer(PanelManager));
+export default injectIntl(withLayoutConsumer(_PanelManager));
 
 PanelManager.propTypes = propTypes;
